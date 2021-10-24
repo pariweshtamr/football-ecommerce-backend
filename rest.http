@@ -1,0 +1,28 @@
+##### APIs
+
+### root api
+GET http://localhost:8000/
+
+### Create new user
+POST http://localhost:8000/api/v1/user
+Content-Type: application/json
+
+{
+    "firstName": "Pariwesh",
+    "lastName": "Tamrakar",
+    "username": "pariwesh7",
+    "email": "a@a.com",
+    "password": "1234567"
+}
+
+
+##### Email APIs
+
+### verify user email
+PATCH  http://localhost:8000/api/v1/user/email-verification
+Content-Type: application/json
+
+{
+    "pin": "811280",
+    "email": "a@a.com"
+}
