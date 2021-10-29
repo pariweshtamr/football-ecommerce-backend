@@ -31,4 +31,14 @@ Content-Type: application/json
 ##### Category Router
 
 ### Get Categories
-GET http://localhost:8000/api/v1/category
+GET http://localhost:8000/api/v1/category/
+
+
+### Post new category
+POST http://localhost:8000/api/v1/category
+Content-Type: application/json
+
+{
+    "name": "Mercurial Superfly",
+    "parentCategory": "617b95fcb98c01845dd32562"
+}

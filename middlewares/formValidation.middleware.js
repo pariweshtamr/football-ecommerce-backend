@@ -47,3 +47,20 @@ export const userEmailVerificationValidation = (req, res, next) => {
   }
   next()
 }
+
+export const newCategoryValidation = (req, res, next) => {
+  const schema = Joi.object({
+    name: plainShortStr,
+    parentCategory: shortStrNull,
+  })
+
+  const value = schema.validate(req.body)
+
+  if (value.error) {
+    return res.json({
+      status: 'error',
+      message: value.error.message,
+    })
+  }
+  next()
+}

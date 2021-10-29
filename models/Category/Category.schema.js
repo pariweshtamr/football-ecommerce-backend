@@ -11,6 +11,8 @@ const CategorySchema = mongoose.Schema(
       type: String,
       required: true,
       default: '',
+      unique: true,
+      index: 1,
     },
     parentCategory: {
       type: mongoose.Schema.Types.ObjectId,
