@@ -26,3 +26,9 @@ Content-Type: application/json
     "pin": "811280",
     "email": "a@a.com"
 }
+
+
+##### Category Router
+
+### Get Categories
+GET http://localhost:8000/api/v1/category
