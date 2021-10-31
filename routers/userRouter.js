@@ -19,6 +19,7 @@ import {
   userEmailVerificationValidation,
   loginUserFormValidation,
 } from '../middlewares/formValidation.middleware.js'
+import { getJWTs } from '../helpers/jwt.helper.js'
 
 Router.post('/', async (req, res) => {
   console.log(req.body)
@@ -81,7 +82,6 @@ Router.patch(
       if (result?._id) {
         //information is valid now we can update the user
         const data = await verifyEmail(result.email)
-        console.log(data)
         if (data?._id) {
           // delete the pin info
           deleteInfo(req.body)
@@ -126,9 +126,15 @@ Router.post('/login', loginUserFormValidation, async (req, res) => {
       const isPasswordMatch = comparePassword(password, user.password)
 
       if (isPasswordMatch) {
+        // GET JWTs tHEN SEND TO CLIENT
+        const jwts = await getJWTs({ _id: user._id, username: user.username })
+
+        console.log(jwts)
+
         return res.json({
           status: 'success',
           messsage: 'Login successful',
+          jwts,
         })
       }
     }

@@ -23,6 +23,12 @@ export const verifyEmail = (email) => {
   }
 }
 
+export const setRefreshJWT = (_id, token) => {
+  return UserSchema.findByIdAndUpdate(_id, {
+    refreshJWT: token,
+  })
+}
+
 export const getUserByUsername = (username) => {
   return UserSchema.findOne({ username })
 }

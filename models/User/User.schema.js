@@ -38,6 +38,10 @@ const UserSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    refreshJWT: {
+      type: String,
+      default: '',
+    },
   },
   {
     timestamps: true,
