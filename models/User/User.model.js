@@ -15,10 +15,14 @@ export const verifyEmail = (email) => {
   try {
     return UserSchema.findOneAndUpdate(
       { email },
-      { isEmailConfirmed: true },
+      { isEmailConfirmed: true, status: 'active' },
       { new: true },
     )
   } catch (error) {
     throw new Error(error)
   }
+}
+
+export const getUserByUsername = (username) => {
+  return UserSchema.findOne({ username })
 }

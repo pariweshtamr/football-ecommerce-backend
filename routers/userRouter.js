@@ -1,7 +1,11 @@
 import express from 'express'
 const Router = express.Router()
-import { hashPassword } from '../helpers/bcrypt.helper.js'
-import { createUser, verifyEmail } from '../models/User/User.model.js'
+import { hashPassword, comparePassword } from '../helpers/bcrypt.helper.js'
+import {
+  createUser,
+  verifyEmail,
+  getUserByUsername,
+} from '../models/User/User.model.js'
 import {
   createUniqueEmailConfirmation,
   deleteInfo,
@@ -11,7 +15,10 @@ import {
   sendEmailVerificationConfirmation,
   sendEmailVerificationLink,
 } from '../helpers/email.helper.js'
-import { userEmailVerificationValidation } from '../middlewares/formValidation.middleware.js'
+import {
+  userEmailVerificationValidation,
+  loginUserFormValidation,
+} from '../middlewares/formValidation.middleware.js'
 
 Router.post('/', async (req, res) => {
   console.log(req.body)
@@ -74,7 +81,7 @@ Router.patch(
       if (result?._id) {
         //information is valid now we can update the user
         const data = await verifyEmail(result.email)
-
+        console.log(data)
         if (data?._id) {
           // delete the pin info
           deleteInfo(req.body)
@@ -97,6 +104,7 @@ Router.patch(
           'Unable to verify your email. The link is either invalid or expired.',
       })
     } catch (error) {
+      console.log(error)
       res.json({
         status: 'error',
         message: 'Error, Unable to verify the email. Please try again later.',
@@ -105,4 +113,35 @@ Router.patch(
   },
 )
 
+//USER LOGIN
+Router.post('/login', loginUserFormValidation, async (req, res) => {
+  try {
+    const { username, password } = req.body
+
+    const user = await getUserByUsername(username)
+
+    if (user?._id) {
+      // Check if password is valid or not
+
+      const isPasswordMatch = comparePassword(password, user.password)
+
+      if (isPasswordMatch) {
+        return res.json({
+          status: 'success',
+          messsage: 'Login successful',
+        })
+      }
+    }
+    res.status(401).json({
+      status: 'error',
+      messsage: 'Unauthorized',
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      status: 'error',
+      message: 'Error, unable to login at the moment. Please try again later',
+    })
+  }
+})
 export default Router

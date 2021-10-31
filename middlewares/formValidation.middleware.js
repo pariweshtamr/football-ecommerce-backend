@@ -48,6 +48,31 @@ export const userEmailVerificationValidation = (req, res, next) => {
   next()
 }
 
+export const loginUserFormValidation = (req, res, next) => {
+  try {
+    const schema = Joi.object({
+      username: shortstr,
+      password: password,
+    })
+
+    const { error } = schema.validate(req.body)
+
+    if (error) {
+      return res.json({
+        status: 'error',
+        message: error.message,
+      })
+    }
+
+    next()
+  } catch (error) {
+    res.json({
+      status: 'error',
+      message: 'Error, Unable to process your request. Please try again later.',
+    })
+  }
+}
+
 export const newCategoryValidation = (req, res, next) => {
   const schema = Joi.object({
     name: plainShortStr,

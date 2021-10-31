@@ -2,6 +2,11 @@ import mongoose from 'mongoose'
 
 const UserSchema = mongoose.Schema(
   {
+    status: {
+      type: String,
+      required: true,
+      default: 'Inactive',
+    },
     firstName: {
       type: String,
       required: true,

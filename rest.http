@@ -12,9 +12,8 @@ Content-Type: application/json
     "lastName": "Tamrakar",
     "username": "pariwesh7",
     "email": "a@a.com",
-    "password": "1234567"
+    "password": "12345678"
 }
-
 
 ##### Email APIs
 
@@ -26,6 +25,17 @@ Content-Type: application/json
     "pin": "811280",
     "email": "a@a.com"
 }
+
+
+### LOGIN USER
+POST http://localhost:8000/api/v1/user/login
+Content-Type: application/json
+
+{
+    "username": "pariwesh7",
+    "password": "12345678"
+}
+
 
 
 ##### Category Router
