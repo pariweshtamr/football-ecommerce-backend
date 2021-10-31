@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema(
     status: {
       type: String,
       required: true,
-      default: 'Inactive',
+      default: 'inactive',
     },
     firstName: {
       type: String,

@@ -21,6 +21,19 @@ import {
 } from '../middlewares/formValidation.middleware.js'
 import { getJWTs } from '../helpers/jwt.helper.js'
 
+Router.all('/', (req, res, next) => {
+  next()
+})
+
+Router.get('/', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'User Profile',
+    user: req.user,
+  })
+})
+
+//CREATE NEW USER
 Router.post('/', async (req, res) => {
   console.log(req.body)
   try {
@@ -66,7 +79,7 @@ Router.post('/', async (req, res) => {
     }
     res.json({
       status: 'error',
-      message: msg,
+      message: 'Unable to create new user',
     })
   }
 })
@@ -128,13 +141,13 @@ Router.post('/login', loginUserFormValidation, async (req, res) => {
       if (isPasswordMatch) {
         // GET JWTs tHEN SEND TO CLIENT
         const jwts = await getJWTs({ _id: user._id, username: user.username })
-
-        console.log(jwts)
+        user.password = undefined
 
         return res.json({
           status: 'success',
           messsage: 'Login successful',
           jwts,
+          user,
         })
       }
     }
