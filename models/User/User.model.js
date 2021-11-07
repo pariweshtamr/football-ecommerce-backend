@@ -32,3 +32,7 @@ export const setRefreshJWT = (_id, token) => {
 export const getUserByUsername = (username) => {
   return UserSchema.findOne({ username })
 }
+
+export const getUserByUsernameAndRefreshToken = (filter) => {
+  return UserSchema.findOne(filter)
+}
