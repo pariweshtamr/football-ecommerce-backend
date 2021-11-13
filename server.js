@@ -24,11 +24,13 @@ app.use(morgan('tiny'))
 // IMPORT Routers
 import userRouter from './routers/userRouter.js'
 import productRouter from './routers/productRouter.js'
+import categoryRouter from './routers/categoryRouter.js'
 import tokenRouter from './routers/tokenRouter.js'
 
 //USE ROUTERS
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/product', productRouter)
+app.use('/api/v1/category', categoryRouter)
 app.use('/api/v1/token', tokenRouter)
 
 app.use('/', (req, res) => {

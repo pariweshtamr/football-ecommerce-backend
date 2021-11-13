@@ -62,5 +62,8 @@ GET http://localhost:8000/api/v1/token
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhcml3ZXNoNyIsImlhdCI6MTYzNjI0NjAxNiwiZXhwIjoxNjM4ODM4MDE2fQ.VyAB2JqvowX1KZYIDCIukCMmgFJ1ndds41PXnQ3rsHE
 
 
-###
+### Get products
 GET http://localhost:8000/api/v1/product
+
+### Get categories
+GET http://localhost:8000/api/v1/category
