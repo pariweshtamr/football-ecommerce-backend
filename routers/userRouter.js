@@ -5,12 +5,14 @@ import {
   createUser,
   verifyEmail,
   getUserByUsername,
+  removeRefreshJWT,
 } from '../models/User/User.model.js'
 import {
   createUniqueEmailConfirmation,
   deleteInfo,
   findUserEmailVerification,
 } from '../models/Pin/Pin.model.js'
+import { removeSession } from '../models/Session/Session.model.js'
 import {
   sendEmailVerificationConfirmation,
   sendEmailVerificationLink,
@@ -160,6 +162,26 @@ Router.post('/login', loginUserFormValidation, async (req, res) => {
     res.status(500).json({
       status: 'error',
       message: 'Error, unable to login at the moment. Please try again later',
+    })
+  }
+})
+
+// user logout
+Router.post('/logout', async (req, res) => {
+  try {
+    const { accessJWT, refreshJWT } = req.body
+    accessJWT && (await removeSession(accessJWT))
+    refreshJWT && (await removeRefreshJWT(refreshJWT))
+
+    res.json({
+      status: 'success',
+      message: 'Logging out...',
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      status: 'error',
+      message: 'Error, unable to Logout, Please try again later.',
     })
   }
 })
